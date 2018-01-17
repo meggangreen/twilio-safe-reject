@@ -6,6 +6,9 @@ from flask import jsonify, flash, session
 from flask_debugtoolbar import DebugToolbarExtension
 from jinja2 import StrictUndefined
 
+from twilio.rest import Client
+from twilio.twiml.messaging_response import MessagingResponse
+
 
 app = Flask(__name__)
 
@@ -22,6 +25,19 @@ def index():
     """ Index. """
 
     return render_template("index.html")
+
+
+@app.route("/sms", methods=['GET', 'POST'])
+def sms_reply():
+    """Respond to incoming messages with a friendly SMS."""
+
+    # Start our response
+    resp = MessagingResponse()
+
+    # Add a message
+    resp.message("copy that")
+
+    return str(resp)
 
 
 #########
