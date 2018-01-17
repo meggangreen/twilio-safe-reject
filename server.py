@@ -45,20 +45,23 @@ app.config.from_object(__name__)
 app.secret_key = "twilio safe reject"
 
 
-@app.route("/sms", methods=['GET', 'POST'])
+@app.route("/sms", methods=['POST'])
 def sms_reply():
     """ Respond to texts from new users, registered users, and harassers. """
 
-    msg_from = request.values.get('From')
-    msg_body = request.values.get('Body', None)
+    msg_body = request.form.get('Body', None)
 
-    # I'm pretty sure there is an error for empty messages, but I want them
-    # to fail silently so as not to alert harassers.
+    # There is an error for empty messages, but instead we fail silently
+    # so as not to alert harassers.
     if not msg_body:
         return
 
     # Check if from number is in database, as user or harasser
-
+    msg_from = request.form.get('From')
+    if is_known_number(msg_from) == "reguser":
+        return parse_reguser_msg(msg_from, msg_body)
+    if is_known_number(msg_from) == "harasser":
+        return
 
 
 
