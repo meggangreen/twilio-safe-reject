@@ -26,3 +26,7 @@ with the registered user.
 
 UNKNOWNS are probably would be harassers trying to get the numbers so
 they can "catch" registered users. And also spambots. Jerks.
+
+Twilio docs that I used:
+https://www.twilio.com/docs/quickstart/python/sms
+https://www.twilio.com/docs/tutorials/employee-directory-python-flask
